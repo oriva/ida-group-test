@@ -18,11 +18,6 @@
           class="elevation-1"
           @click:row="rowClick"
       >
-        <template #item.name="{ item }">
-          <router-link :to="{ name: 'details', params: { id: item.id } }">
-            {{ item.name }}
-          </router-link>
-        </template>
       </v-data-table>
     </v-card>
   </v-container>
@@ -69,6 +64,7 @@ export default {
         ...item.data.general
       }
     })
+
   },
   computed: {
     filteredLibrary() {
@@ -88,3 +84,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .elevation-1 td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+</style>
