@@ -22,8 +22,6 @@ const store = new Vuex.Store({
             return state.libraries
         },
         getLibrary: (state) => (id) => {
-            console.log(state.libraries)
-            console.log(id)
             return state.libraries.find((item) => {
                 return parseInt(item.id) === parseInt(id)
             })

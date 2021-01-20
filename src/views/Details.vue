@@ -4,7 +4,6 @@
         :items="breadItems"
         divider=">"
     ></v-breadcrumbs>
-    {{ library }}
     <v-card
         class="mx-auto my-12"
         max-width="374"
@@ -68,7 +67,6 @@ export default {
     ...mapGetters(['getLibrary']),
     library() {
       let result = this.getLibrary(this.$route.params.id)
-      console.log(result)
       return result
     }
   }
