@@ -8,28 +8,25 @@ const store = new Vuex.Store({
         libraries: []
     },
     mutations: {
-        SET_CATALOG: (state, response) => {
+        SET_LIBRARIES: (state, response) => {
             state.libraries = response
-        }
-    },
-    getters: {
-        setLibraries(state, response) {
-            state.libraries = response
-        },
-        getLibraries(state) {
-            return state.libraries
-        },
-        getLibrary(state) {
-            return (id) => {
-                return state.reports.find((item) => {
-                    return item.id === id
-                })
-            }
         }
     },
     actions: {
-        setJsonLibrary({commit, libraries}) {
-            commit('increment', libraries)
+        setJsonLibrary({commit}, libraries) {
+            commit('SET_LIBRARIES', libraries)
+        }
+    },
+    getters: {
+        getLibraries(state) {
+            return state.libraries
+        },
+        getLibrary: (state) => (id) => {
+            console.log(state.libraries)
+            console.log(id)
+            return state.libraries.find((item) => {
+                return parseInt(item.id) === parseInt(id)
+            })
         }
     }
 });

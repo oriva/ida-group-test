@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import Library from '../assets/library.json';
 import router from "@/router";
+import {mapGetters} from "vuex";
 
 export default {
   name: 'Index',
@@ -45,7 +45,7 @@ export default {
       },
       {
         text: 'Адрес',
-        value: 'organization.address.fullAddress',
+        value: 'address.address',
         filterable: true
       }
     ],
@@ -55,21 +55,11 @@ export default {
       iron: [],
     },
     search: '',
-    libraries: Library
   }),
-  created() {
-    this.libraries = this.libraries.map((item) => {
-      return {
-        desc: item.data.general.description.replace(/<\/?[^>]+(>|$)/g, ""),
-        ...item.data.general
-      }
-    })
-
-  },
   computed: {
+    ...mapGetters(['getLibraries']),
     filteredLibrary() {
-      console.log(this.libraries)
-      return this.libraries.filter(d => {
+      return this.getLibraries.filter(d => {
         return Object.keys(this.filters).every(f => {
           return this.filters[f].length < 1 || this.filters[f].includes(d[f])
         })
@@ -78,16 +68,19 @@ export default {
   },
   methods: {
     rowClick(item) {
-      console.log(item)
-      router.push({ name: 'details', params: { id: item.id } })
+      router.push({name: 'details', params: {id: item.id}})
     }
   }
 }
 </script>
 
-<style scoped>
-  .elevation-1 td {
-    padding-top: 5px;
-    padding-bottom: 5px;
+<style lang="scss">
+.elevation-1.v-data-table > .v-data-table__wrapper > table > tbody > tr {
+  cursor: pointer;
+
+  & > td {
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
+}
 </style>
